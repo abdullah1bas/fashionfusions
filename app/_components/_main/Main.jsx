@@ -49,7 +49,7 @@ const Main = ({ IsSearch }) => {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <IconButton className="absolute top-0 right-2.5" sx={{":hover": { color: "red", rotate: "180deg", transition: "0.3s" },}}
+          <IconButton sx={{":hover": { color: "red", rotate: "180deg", transition: "0.3s" }, position: "absolute", top: 0, right: 10,}}
             onClick={() => setOpen(!open)}>
             <Close />
           </IconButton>
