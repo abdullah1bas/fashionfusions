@@ -1,15 +1,11 @@
+import { Container } from "@mui/material";
 import { deleteAllProducts } from "../../_redux/cartSlice";
 import { useUser } from "@clerk/nextjs";
-import {
-  useStripe,
-  useElements,
-  PaymentElement,
-} from "@stripe/react-stripe-js";
+import { useStripe, useElements, PaymentElement,} from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 const CheckoutForm = ({ amount, products }) => {
-  // const { cart, setCart } = useContext(CartContext);
   const { user } = useUser();
   const stripe = useStripe();
   const elements = useElements();
@@ -33,7 +29,6 @@ const CheckoutForm = ({ amount, products }) => {
       return;
     }
     setLoading(true);
-
     // Send an Email
     sendEmail();
 
@@ -57,7 +52,7 @@ const CheckoutForm = ({ amount, products }) => {
       clientSecret,
       elements,
       confirmParams: {
-        return_url: "/payment-confirm",
+        return_url: "https://fashionfusions-two.vercel.app/payment-confirm",
       },
     });
 
@@ -87,12 +82,12 @@ const CheckoutForm = ({ amount, products }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="mx-32 md:mx-[320px] mt-12">
+      <Container className="flex flex-col px-10  h-lvh justify-center ">
         <PaymentElement />
-        <button className="w-full p-2 mt-4 text-white rounded-md bg-primary">
+        <button className="w-full p-2 mt-4 text-white rounded-md bg-primary" disabled={loading}>
           Submit
         </button>
-      </div>
+      </Container>
     </form>
   );
 };

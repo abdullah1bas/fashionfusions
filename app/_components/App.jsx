@@ -23,8 +23,10 @@ function App({ child }) {
   useEffect(() => {
     const isLogIn = pathName.includes("sign-in");
     const isLogUp = pathName.includes("sign-up");
+    const isPaymentConfirm = pathName.includes("payment-confirm");
+    const isCheckout = pathName.includes("checkout");
 
-    setHide(isLogIn || isLogUp);
+    setHide(isLogIn || isLogUp || isPaymentConfirm || isCheckout);
   }, [pathName]);
 
   return (

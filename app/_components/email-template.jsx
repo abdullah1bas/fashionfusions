@@ -1,15 +1,4 @@
-import {
-  Body,
-  Button,
-  Container,
-  Head,
-  Hr,
-  Html,
-  Img,
-  Preview,
-  Section,
-  Text,
-} from "@react-email/components";
+import { Body, Button, Container, Head, Hr, Html, Img, Preview, Section, Text,} from "@react-email/components";
 import * as React from "react";
 
 export const EmailTemplate = ({ body }) => {
