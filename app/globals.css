@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  /* color: var(--foreground); */
+  /* background: var(--background); */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer components {
+  .header-link {
+    @apply text-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75;
+  }
+  .login-button {
+    @apply rounded-md px-5 py-2.5 text-sm font-medium transition;
+  }
+  .register-button {
+    @apply hidden bg-gray-100 text-teal-600 hover:text-teal-500/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75 sm:block;
+  }
+  .toggle-menu {
+    @apply block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75 md:hidden;
+  }
+  .login-section {
+    @apply relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6;
+  }
+  .login-logo {
+    @apply inline-flex size-16 items-center justify-center rounded-full bg-white text-blue-600 sm:size-20 dark:bg-gray-900;
+  }
+  .login-main {
+    @apply flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Scroll bar */
+::-webkit-scrollbar {
+  width: 0.7rem;
+}
+
+::-webkit-scrollbar-track {
+  border: 7px solid #232943;
+  box-shadow: inset 0 0 2.5px 2px rgba(0, 0, 0, 0.5);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #777;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+/* for Firefox */
+html {
+  scrollbar-color: #9e4673 #3d4a59;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.cl-internal-16mc20d {
+  display: none;
+}
