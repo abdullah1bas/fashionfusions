@@ -54,7 +54,6 @@ const HeaderMode = () => {
       changeLanguage(lang, code);
     };
 
-  
   const toggleMode = () => {
     const newMode = theme.palette.mode === "dark" ? "light" : "dark";
     localStorage.setItem("mode", newMode);
@@ -79,14 +78,15 @@ const HeaderMode = () => {
   }, [options]);
 
   return (
-    <Box className='bg-[#2B3445] py-1 rounded-br rounded-bl'>
+    <div className='bg-[#2B3445] py-1 rounded-br rounded-bl'>
       <Container>
-        <Stack direction={"row"} alignItems={"center"}>
-          <Typography className="mr-2 py-1 px-3 bg-red-500 rounded-xl text-xs bold text-white" variant="body2">
+        <div className="flex items-center">
+          <Typography variant="body2"
+            sx={{ mr: 2, p: "4px 10px", bgcolor: "#D23F57", borderRadius: "12px", fontSize: "12px", fontWeight: "bold", color: "#fff",}}>
           {t('HOT')}
           </Typography>
 
-          <Typography className="text-xs text-white font-light" variant="body2">
+          <Typography sx={{ fontSize: "12px", fontWeight: 300, color: "#fff",}} variant="body2">
             {t('Free Express Shipping')}
           </Typography>
 
@@ -148,9 +148,9 @@ const HeaderMode = () => {
               <IconButton href={button.iconUrl}>{button.iconButton}</IconButton>
             </Tooltip>
           ))}
-        </Stack>
+        </div>
       </Container>
-    </Box>
+    </div>
   );
 };
 

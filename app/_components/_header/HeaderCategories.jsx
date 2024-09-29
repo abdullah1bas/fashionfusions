@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { changeAPI } from "../../_redux/changeAPISlice";
 import {  Drawer, IconButton, useMediaQuery } from '@mui/material';
-import Links from './_headerC/Links';
+import Links from './Links';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MenuIcon from '@mui/icons-material/Menu';
 import { useRouter } from "next/navigation";
@@ -103,7 +103,7 @@ const HeaderCategories = () => {
             aria-expanded={open ? "true" : undefined} onClick={e => setAnchorEl(e.currentTarget)}
             sx={{ width: 222, bgcolor: theme.palette.myColor.main, color: theme.palette.text.secondary,}}>
             <Window />
-            <Typography className="p-0 capitalize mx4">{t("Categories")}</Typography>
+            <Typography sx={{ padding: "0", textTransform: "capitalize", mx: 1,}}>{t("Categories")}</Typography>
             <Box flexGrow={1} />
 
             <KeyboardArrowRightOutlined />

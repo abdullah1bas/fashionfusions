@@ -1,4 +1,6 @@
 "use client";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { ColorModeContext, useMode } from "../_style/theme";
 import { Provider } from "react-redux";
 import { store } from "../_redux/store";
 import Footer from "./Footer";
@@ -14,6 +16,7 @@ import { usePathname } from "next/navigation";
 const headerComponents = [HeaderMode, HeaderSearch, HeaderCategories];
 
 function App({ child }) {
+  const [theme, colorMode] = useMode();
   const [hide, setHide] = useState(false);
   const pathName = usePathname();
 
@@ -26,11 +29,16 @@ function App({ child }) {
 
   return (
     <Provider store={store}>
-      {!hide && <HeaderContainer headerComponents={headerComponents} />}
-      <div className="min-h-lvh">{child}</div>
-      {!hide && <Footer />}
-
-      <ScrollToTop />
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+            {!hide && <HeaderContainer headerComponents={headerComponents} />}
+            <div className="min-h-lvh">{child}</div>
+            {!hide && <Footer />}
+            
+            <ScrollToTop />
+        </ThemeProvider>
+      </ColorModeContext.Provider>
     </Provider>
   );
 }

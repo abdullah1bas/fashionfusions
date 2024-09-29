@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
-import { decreaseQuantity, deleteProduct, increaseQuantity } from "../../../_redux/cartSlice";
+import { decreaseQuantity, deleteProduct, increaseQuantity } from "../../_redux/cartSlice";
 import Swal from "sweetalert2";
 import "./headerC.css";
 

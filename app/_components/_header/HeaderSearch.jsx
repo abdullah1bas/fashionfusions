@@ -2,7 +2,7 @@
 import { Login, PersonOutlined, ShoppingCartOutlined,} from "@mui/icons-material";
 import { Container, Fade, IconButton, Stack, Tooltip, Typography, useMediaQuery,} from "@mui/material";
 import { useTranslation } from "react-i18next";
-import CartButtonIcon from "./_headerC/CartButtonIcon";
+import CartButtonIcon from "./CartButtonIcon";
 import { useRouter } from "next/navigation";
 import { UserButton, useUser } from "@clerk/nextjs";
 import changeClerk from "../changeClerk";
@@ -87,14 +87,13 @@ const HeaderSearch = () => {
   changeClerk(".cl-internal-lk7758");
   return (
     <Container className="my-5 flex justify-between">
-      <Stack className="items-center cursor-pointer"  onClick={() => { dispatch(setSearchTerm("")); router.push("/");}}>
+      <div className="flex items-center cursor-pointer"  onClick={() => { dispatch(setSearchTerm("")); router.push("/");}}>
         <ShoppingCartOutlined />
         <Typography variant="body2">{t("E-commerce")}</Typography>
-      </Stack>
+      </div>
 
       {isDesktop && 
-      (
-        <Search className="flex rounded-3xl justify-between">
+      (<Search sx={{ display: "flex", borderRadius: "22px", justifyContent: "space-between",}}>
           <IconButton onClick={handleClickedSearch} className="ml-1">
             <SearchIcon />
           </IconButton>
