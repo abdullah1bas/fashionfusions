@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class', // لتمكين الوضع المظلم بناءً على الفئة
+  // prefix: 'tw-', // da 3shan t3arod al mui to tailwind
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",

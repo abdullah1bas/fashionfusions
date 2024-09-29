@@ -23,7 +23,12 @@ const CartButtonIcon = () => {
   const {user} = useUser();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const dispatch = useDispatch();
+  const [isHydrated, setIsHydrated] = useState(false); // To track hydration status
 
+  // إضافة حالة isHydrated: للتحقق من أن العميل جاهز بعد الانتهاء من عملية الـ hydration (تحديث البيانات بعد تحميل الصفحة).
+  useEffect(() => {
+    setIsHydrated(true); // Set hydrated to true once client is ready
+  }, []);
 
   const toggleDrawer = useCallback((open) => (event) => {
       if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) return;
@@ -52,6 +57,10 @@ const CartButtonIcon = () => {
   const totalAmount = useMemo(() => {
     return selectedProducts.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0);
   }, [selectedProducts]);
+
+  if (!isHydrated) {
+    return null; // or you can return a loading spinner
+  }
 
   return (
     <>

@@ -1,11 +1,8 @@
 "use client";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { ColorModeContext, useMode } from "../_style/theme";
 import { Provider } from "react-redux";
 import { store } from "../_redux/store";
 import Footer from "./Footer";
 import "../_i18n/i18n";
-import { useUser } from "@clerk/nextjs";
 import HeaderContainer from "./_header/HeaderContainer";
 import HeaderMode from "./_header/HeaderMode";
 import HeaderSearch from "./_header/HeaderSearch";
@@ -17,9 +14,6 @@ import { usePathname } from "next/navigation";
 const headerComponents = [HeaderMode, HeaderSearch, HeaderCategories];
 
 function App({ child }) {
-  const [theme, colorMode] = useMode();
-  const {user} = useUser();
-
   const [hide, setHide] = useState(false);
   const pathName = usePathname();
 
@@ -32,16 +26,11 @@ function App({ child }) {
 
   return (
     <Provider store={store}>
-      <ColorModeContext.Provider value={colorMode}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-            {/* {!hide && <HeaderContainer headerComponents={headerComponents} />} */}
-            <div className="min-h-lvh">{child}</div>
-            {/* {!hide && <Footer />} */}
-            
-            <ScrollToTop />
-        </ThemeProvider>
-      </ColorModeContext.Provider>
+      {!hide && <HeaderContainer headerComponents={headerComponents} />}
+      <div className="min-h-lvh">{child}</div>
+      {!hide && <Footer />}
+
+      <ScrollToTop />
     </Provider>
   );
 }
