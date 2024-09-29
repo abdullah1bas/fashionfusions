@@ -35,9 +35,9 @@ function App({ child }) {
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-            {!hide && <HeaderContainer headerComponents={headerComponents} />}
+            {/* {!hide && <HeaderContainer headerComponents={headerComponents} />} */}
             <div className="min-h-lvh">{child}</div>
-            {!hide && <Footer />}
+            {/* {!hide && <Footer />} */}
             
             <ScrollToTop />
         </ThemeProvider>
