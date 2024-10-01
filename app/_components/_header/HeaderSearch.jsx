@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { UserButton, useUser } from "@clerk/nextjs";
 import changeClerk from "../changeClerk";
 import { changeAPI } from "../../_redux/changeAPISlice";
-import { setSearchTerm } from "../../_redux/selectedProdcutSlice";
+import { setSearchTerm } from "../../_redux/selectedProductSlice";
 import SearchIcon from "@mui/icons-material/Search";
 import {useCallback, useState } from "react";
 import { InputBase, styled, useTheme , List, ListItem, ListItemText, MenuItem, Menu } from "@mui/material";
