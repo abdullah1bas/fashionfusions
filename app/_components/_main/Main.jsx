@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Container, Dialog, IconButton, Typography, useTheme,} from "@mui/material";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Close } from "@mui/icons-material";
 import ProductDetails from "./ProductDetails";
 import MainHeader from "./MainHeader";
@@ -12,6 +12,8 @@ const Main = ({ IsSearch }) => {
   const [clickedProduct, setClickedProduct] = useState({});
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+
+  const handleOpenDialog = useCallback((isTrue) => { setOpen(isTrue); }, []);
 
   const { filteredProducts, error, isLoading, searchTerm } = useLoadProducts();
 
@@ -41,7 +43,7 @@ const Main = ({ IsSearch }) => {
         {!IsSearch ? (  <MainHeader />
         ) : (<div className="mt-4 ml-4"><h1 className="">{t("Searching for")} “{searchTerm}”</h1><h3>{filteredProducts?.length} {t("results found")}</h3></div>)}
 
-        <MainProducts {...{ filteredProducts, setClickedProduct, setOpen }} />
+        <MainProducts {...{ filteredProducts, setClickedProduct, handleOpenDialog }} />
 
         <Dialog sx={{".MuiPaper-root": { minWidth: { xs: "100%", md: 900 }, [theme.breakpoints.down("sm")]: { height: "60%" },},}}
           open={open}

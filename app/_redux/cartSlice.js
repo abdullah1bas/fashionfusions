@@ -8,7 +8,7 @@ const loadFromLocalStorage = (key) => {
   return [];
 };
 
-// // use "useSelector" to get the array
+// use "useSelector" to get the array
 const initialState = {
   selectedProducts: loadFromLocalStorage("selectedProducts"),
   selectedProductsID: loadFromLocalStorage("selectedProductsID"),

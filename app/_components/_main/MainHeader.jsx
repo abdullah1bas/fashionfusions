@@ -17,8 +17,7 @@ const MainHeader = () => {
     }
   },[]);
 
-  // @ts-ignore
-  const state = useSelector(state => state.dataAPI)
+  const dataAPI = useSelector(state => state.dataAPI)
   return (
     <Stack
       direction={"row"}
@@ -37,7 +36,7 @@ const MainHeader = () => {
       <ToggleButtonGroup
         color="error"
         // da al value bta3 al parent we lma value child === y7ot 3la al value select
-        value={t(state.myData)}
+        value={t(dataAPI.myData)}
         exclusive
         onChange={handleAlignment}
         aria-label="text alignment"
@@ -50,22 +49,22 @@ const MainHeader = () => {
         }}
       >
         {[
-          { aria: "left aligned", name: "All Products", value: state.allProductAPI },
-          { aria: "centered", name: "Men Category", value: state.menCategoryAPI },
+          { aria: "left aligned", name: "All Products", value: dataAPI.allProductAPI },
+          { aria: "centered", name: "Men Category", value: dataAPI.menCategoryAPI },
           {
             aria: "right aligned",
             name: "Women Category",
-            value: state.womenCategoryAPI,
+            value: dataAPI.womenCategoryAPI,
           },
           {
             aria: "right aligned",
             name: "Jewelery Category",
-            value: state.jeweleryCategoryAPI,
+            value: dataAPI.jeweleryCategoryAPI,
           },
           {
             aria: "right aligned",
             name: "Electronics Category",
-            value: state.electronicCategoryAPI,
+            value: dataAPI.electronicCategoryAPI,
           },
         ].map((item) => {
           return (

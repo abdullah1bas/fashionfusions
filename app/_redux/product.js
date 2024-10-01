@@ -6,16 +6,16 @@ const apiBase = process.env.NEXT_PUBLIC_API_BASE
 // Define a service using a base URL and expected endpoints
 export const productApi = createApi({
   reducerPath: "productApi",
-  baseQuery: fetchBaseQuery({
-    // @ts-ignore
-    baseUrl: apiBase,
-  }),
+  baseQuery: fetchBaseQuery({baseUrl: apiBase, }),
   endpoints: (builder) => ({
-    getproductsByName: builder.query({
+    getProductsByName: builder.query({
       query: (name) => `${name}`,
+      // transformResponse: (response) => {
+      //   console.log(response);
+      // }
     }),
   }),
 });
 
-// useGetproductsByNameQuery(complete Url)
-export const { useGetproductsByNameQuery } = productApi;
+// useGetProductsByNameQuery(complete Url)
+export const { useGetProductsByNameQuery } = productApi;

@@ -4,10 +4,12 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { productApi } from "./product";
 import cartReducer from "./cartSlice";
 import changeAPISlice from "./changeAPISlice";
+import { selectedProductSlice } from "./selectedProductSlice";
 
 export const store = configureStore({
   reducer: {
     dataAPI: changeAPISlice,
+    selectedProduct: selectedProductSlice.reducer,
     //  "cart" ======>  useSelector
     cart: cartReducer,
     // Add the generated reducer as a specific top-level slice
@@ -16,9 +18,7 @@ export const store = configureStore({
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
-      .concat(productApi.middleware)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(productApi.middleware)
       // .concat(oneproductsApi.middleware),
 });
 

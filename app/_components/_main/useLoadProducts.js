@@ -1,15 +1,15 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetproductsByNameQuery } from "../../_redux/product";
-import { addProductsSearch } from "../../_redux/changeAPISlice"; 
+import { useGetProductsByNameQuery } from "../../_redux/product";
+import { addProductsSearch } from "../../_redux/selectedProductSlice"; 
 
 export const useLoadProducts = () => {
   const dispatch = useDispatch();
   const myData = useSelector((state) => state.dataAPI.myData);
 
-  const { data: products, isSuccess, error, isLoading,} = useGetproductsByNameQuery(myData);
+  const { data: products, isSuccess, error, isLoading,} = useGetProductsByNameQuery(myData);
 
-  const searchTerm = useSelector((state) => state.dataAPI.searchTerm); 
+  const searchTerm = useSelector((state) => state.selectedProduct.searchTerm); 
   
   const filteredProducts = products?.filter(product => 
     product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||

@@ -17,10 +17,7 @@ const HeaderCategories = () => {
   const [expandedMain, setExpandedMain] = useState(false);
   const [expandedSub, setExpandedSub] = useState(false);
   const router = useRouter();
-  const [state, setState] = useState({
-    top: false, left: false,
-    bottom: false, right: false,
-  });
+  const [state, setState] = useState({top: false, left: false, bottom: false, right: false,});
   const open = Boolean(anchorEl);
   const theme = useTheme();
   const dataAPI = useSelector((state) => state.dataAPI);
@@ -91,14 +88,23 @@ const HeaderCategories = () => {
 
   const handleMainChange = useCallback((panel) => (event, isExpanded) => setExpandedMain(isExpanded ? panel : false), []);
   const handleSubChange = useCallback((panel) => (event, isExpanded) => setExpandedSub(isExpanded ? panel : false), []);
+  const handleAccordion = useCallback((link) => { setState({ ...state, ["top"]: false }); router.push(link);},[]);
+  const handleMenuItemClick = useCallback((itemText) => {
+    setAnchorEl(null);
+
+    const categoryMap = {
+      Men: dataAPI.menCategoryAPI,
+      Women: dataAPI.womenCategoryAPI,
+      Electronics: dataAPI.electronicCategoryAPI,
+      Jewelery: dataAPI.jeweleryCategoryAPI,
+    };
+
+    dispatch(changeAPI(categoryMap[itemText]));
+  }, [dispatch, dataAPI]);
   return (
     <Container className="flex items-center justify-between mt-3">
       <Box>
-        <Tooltip
-          TransitionComponent={Fade}
-          TransitionProps={{ timeout: 600 }}
-          title={t("Categories Menu")}
-        >
+        <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={t("Categories Menu")}>
           <Button id="basic-button" aria-controls={open ? "basic-menu" : undefined} aria-haspopup="true"
             aria-expanded={open ? "true" : undefined} onClick={e => setAnchorEl(e.currentTarget)}
             sx={{ width: 222, bgcolor: theme.palette.myColor.main, color: theme.palette.text.secondary,}}>
@@ -113,114 +119,50 @@ const HeaderCategories = () => {
         <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={e => setAnchorEl(null)}
           MenuListProps={{ "aria-labelledby": "basic-button",}}
           sx={{ ".MuiPaper-root": { width: 220, bgcolor: theme.palette.myColor.main,},}}>
-          {categoryList.map((item) => {
-            return (
-              <MenuItem key={item.text}
-                onClick={() => {
-                  setAnchorEl(null);
-                  item.text == "Women"
-                    ? dispatch(changeAPI(dataAPI.womenCategoryAPI))
-                    : item.text == "Electronics"
-                    ? dispatch(changeAPI(dataAPI.electronicCategoryAPI))
-                    : item.text == "Jewelery"
-                    ? dispatch(changeAPI(dataAPI.jeweleryCategoryAPI))
-                    : dispatch(changeAPI(dataAPI.menCategoryAPI));
-                }}
-              >
+          {categoryList.map((item) => 
+              (<MenuItem key={item.text} onClick={() => {handleMenuItemClick(item.text)}}>
                 <ListItemIcon>{item.icon}</ListItemIcon>
-
                 <ListItemText>{t(item.text)}</ListItemText>
-              </MenuItem>
-            );
-          })}
+              </MenuItem>))}
         </Menu>
       </Box>
       
 
       {useMediaQuery("(min-width:992px)") && (
-        <div className="flex mb-3 gap-3 items-center">
-          {linkList.map(links => <Links key={links.titleLink} {...{links}} />)}
-        </div>
-      )}
-      {useMediaQuery("(max-width:991px)") && (
-        <IconButton  onClick={toggleDrawer("top", true)}>
-          <MenuIcon />
-        </IconButton>
-      )}
+        <div className="flex mb-3 gap-3 items-center">{linkList.map(links => <Links key={links.titleLink} {...{links}} />)}</div>)}
+
+      {useMediaQuery("(max-width:991px)") && (<IconButton  onClick={toggleDrawer("top", true)}><MenuIcon /></IconButton>)}
       
-      <Drawer anchor={"top"} open={state["top"]}
-          onClose={toggleDrawer("top", false)}
+      <Drawer anchor={"top"} open={state["top"]} onClose={toggleDrawer("top", false)}
           sx={{ ".MuiPaper-root.css1sozasi-MuiPaper-root-MuiDrawer-paper": { height: "100%", mb: '20px' }, }}
         >
-          <Box
-            sx={{ width: 444, mx: "auto", mt: 6, position: "relative", pt: 10 }}
-          >
-      
-            <IconButton 
-              sx={{
-                ":hover": { color: "red", rotate: "180deg", transition: "0.3s" },
-                position: "absolute",
-                top: 0,
-                right: 10,
-              }}
-              onClick={toggleDrawer("top", false)}
-            >
-              <Close />
-            </IconButton>
+          <div className="w-[444px] mx-auto mt-12 relative pt-20" >
+            <IconButton sx={{ ":hover": { color: "red", rotate: "180deg", transition: "0.3s" }, position: "absolute", top: 0, right: 10,}}
+              onClick={toggleDrawer("top", false)}> <Close /> </IconButton>
       
             {linkList.map((item, index) => {
               return (
-                <Accordion
-                  expanded={expandedMain === t(item.titleLink)}
-                  onChange={handleMainChange(t(item.titleLink))}
-                  key={t(item.titleLink)}
-                  elevation={0}
-                  sx={{ bgcolor: "initial" }}
-                >
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls={`panel${index + 1}a-content`}
-                    id={`panel${index + 1}a-header`}
-                  >
+                <Accordion key={t(item.titleLink)} elevation={0} sx={{ bgcolor: "initial" }} expanded={expandedMain === t(item.titleLink)}
+                  onChange={handleMainChange(t(item.titleLink))}>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`panel${index + 1}a-content`}>
                     <Typography>{t(item.titleLink)}</Typography>
                   </AccordionSummary>
                   {<List sx={{ py: 0, my: 0 }}>
                     {item.subLink.map((link) => {
                       return (
-                        <Accordion
-                          expanded={expandedSub === t(link.text)}
-                          onChange={handleSubChange(t(link.text))}
-                          key={t(link.text)}
-                          elevation={1}
-                          sx={{ bgcolor: "initial" }}
-                          onClick={(e)=> {
-                            if(link.link) {
-                              setState({ ...state, ["top"]: false });
-                              router.push(link.link);
-                            }
-                          }}
-                        >
-                          <AccordionSummary
-                            expandIcon={!link.link && <ExpandMoreIcon />}
-                            aria-controls={`panel${index + 2}a-content`}
-                            id={`panel${index + 2}a-header`}
-                          >
+                        <Accordion expanded={expandedSub === t(link.text)} onChange={handleSubChange(t(link.text))} key={t(link.text)}
+                          elevation={1} sx={{ bgcolor: "initial" }} onClick={(e)=> link.link && handleAccordion(link.link)}>
+                          <AccordionSummary expandIcon={!link.link && <ExpandMoreIcon />} aria-controls={`panel${index + 2}a-content`}>
                             <Typography>{t(link.text)}</Typography>
                           </AccordionSummary>
                           {!link.link && <List sx={{ py: 0, my: 0 }}>
-                            {link.subLink?.map((link) => {
-                              return (
-                                <ListItem key={link.title} sx={{ py: 0, my: 0 }}>
-                                  <ListItemButton onClick={()=> {
-                                    setState({ ...state, ["top"]: false });
-                                    router.push(link.link);
-                                    }}>
-                                    <ListItemText primary={t(link.title)} />
-                                  </ListItemButton>
-                                </ListItem>
-                              );
-                            })}
-                          </List>}
+                            {link.subLink?.map((link) => (
+                              <ListItem key={link.title} sx={{ py: 0, my: 0 }}>
+                                <ListItemButton onClick={()=> {handleAccordion(link.link)}}>
+                                  <ListItemText primary={t(link.title)} />
+                                </ListItemButton>
+                              </ListItem>))}
+                            </List>}
                         </Accordion>
                       );
                     })}
@@ -229,7 +171,7 @@ const HeaderCategories = () => {
               );
             })}
       
-          </Box>
+          </div>
         </Drawer>
     </Container>
   );

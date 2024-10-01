@@ -6,7 +6,8 @@ import CartButtonIcon from "./CartButtonIcon";
 import { useRouter } from "next/navigation";
 import { UserButton, useUser } from "@clerk/nextjs";
 import changeClerk from "../changeClerk";
-import { changeAPI, setSearchTerm } from "../../_redux/changeAPISlice";
+import { changeAPI } from "../../_redux/changeAPISlice";
+import { setSearchTerm } from "../../_redux/selectedProdcutSlice";
 import SearchIcon from "@mui/icons-material/Search";
 import {useCallback, useState } from "react";
 import { InputBase, styled, useTheme , List, ListItem, ListItemText, MenuItem, Menu } from "@mui/material";
@@ -57,7 +58,7 @@ const HeaderSearch = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [searchProduct, setSearchProduct] = useState('');
   const theme = useTheme();
-  const state = useSelector(state => state.dataAPI)
+  const dataAPI = useSelector(state => state.dataAPI)
   const open = Boolean(anchorEl);
   const isDesktop = useMediaQuery('(min-width:500px)');
 
@@ -67,15 +68,15 @@ const HeaderSearch = () => {
     setAnchorEl(null);
 
     const categoryMap = {
-      Men: state.menCategoryAPI,
-      Women: state.womenCategoryAPI,
-      Electronics: state.electronicCategoryAPI,
-      Jewelery: state.jeweleryCategoryAPI,
-      'All Categories': state.allProductAPI,
+      Men: dataAPI.menCategoryAPI,
+      Women: dataAPI.womenCategoryAPI,
+      Electronics: dataAPI.electronicCategoryAPI,
+      Jewelery: dataAPI.jeweleryCategoryAPI,
+      'All Categories': dataAPI.allProductAPI,
     };
 
     dispatch(changeAPI(categoryMap[options[index]]));
-  }, [dispatch, state]);
+  }, [dispatch, dataAPI]);
   
   const handleClickedSearch = () => {
     if (searchProduct !== '') {
@@ -98,23 +99,12 @@ const HeaderSearch = () => {
             <SearchIcon />
           </IconButton>
           
-          <StyledInputBase
-            placeholder={t("Search…")}
-            inputProps={{ "aria-label": "search" }}
-            sx={{ flexGrow: 1 , 
-              '.css-1jrstcx-MuiInputBase-input' : {pl: 1}
-            }}
-            value={searchProduct}
-            onChange={e => setSearchProduct(e.target.value)}
-          />
+          <StyledInputBase placeholder={t("Search…")} inputProps={{ "aria-label": "search" }} value={searchProduct}
+            sx={{ flexGrow: 1 , '.css-1jrstcx-MuiInputBase-input' : {pl: 1}}} onChange={e => setSearchProduct(e.target.value)}/>
 
           <div>
             <List component="nav" aria-label="Device settings"
-              sx={{
-                bgcolor: theme.palette.myColor.main,
-                borderBottomRightRadius: 22,
-                borderTopRightRadius: 22,
-                p: "0",
+              sx={{ bgcolor: theme.palette.myColor.main, borderBottomRightRadius: 22, borderTopRightRadius: 22, p: "0",
                 width: typeof window !== 'undefined' && (localStorage.getItem("langaugeSite") === "FR" || i18n.language === "FR")
                     ? "165px !important"
                     : typeof window !== 'undefined' && (localStorage.getItem("langaugeSite") === "CHI" || i18n.language === "CHI")
@@ -125,13 +115,8 @@ const HeaderSearch = () => {
                 "&:hover": { cursor: "pointer" },
               }}
             >
-              <ListItem
-                aria-haspopup="listbox"
-                aria-controls="lock-menu"
-                aria-label="when device is locked"
-                aria-expanded={open ? "true" : undefined}
-                onClick={event => setAnchorEl(event.currentTarget)}
-              >
+              <ListItem aria-haspopup="listbox" aria-controls="lock-menu" aria-label="when device is locked"
+                aria-expanded={open ? "true" : undefined} onClick={event => setAnchorEl(event.currentTarget)}>
                 <ListItemText className="w-[93px] text-center" secondary={t(options[selectedIndex])}/>
                 <ExpandMore sx={{ fontSize: "16px" }} />
               </ListItem>
