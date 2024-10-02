@@ -83,8 +83,7 @@ const Hero = () => {
               <Link className='link-shop text-secondary flex items-center gap-1 transition duration-200 relative cursor-pointer hover:text-[#D23F57] '
                 sx={{
                   "&:hover:before": { width: t("shop now") == "Achetez maintenant" ? "165px" : t("shop now") == "تسوق الآن" ? "70px" : "90px",},
-                  "&:hover .icon-arrow": { animationPlayState: "running", },
-                }} underline="none"
+                  "&:hover .icon-arrow": { animationPlayState: "running", }, color: '#2B3445', }} underline="none"
               >
                 {t("shop now")}
                 <ArrowForwardIcon className="icon-arrow text-sm relative -left-1 top-0 transition duration-300"

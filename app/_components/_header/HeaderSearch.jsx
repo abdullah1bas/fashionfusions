@@ -100,7 +100,7 @@ const HeaderSearch = () => {
           </IconButton>
           
           <StyledInputBase className="ps-2" placeholder={t("Search…")} inputProps={{ "aria-label": "search" }} value={searchProduct}
-            sx={{ flexGrow: 1 , '.css-1jrstcx-MuiInputBase-input' : {pl: 0}}} onChange={e => setSearchProduct(e.target.value)}/>
+            sx={{ flexGrow: 1 , pl: '5px !important' , '.css-1jrstcx-MuiInputBase-input': {pl: '10px !important'}}} onChange={e => setSearchProduct(e.target.value)}/>
 
           <div>
             <List component="nav" aria-label="Device settings"
