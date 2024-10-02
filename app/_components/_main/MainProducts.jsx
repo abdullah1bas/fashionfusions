@@ -4,10 +4,11 @@ import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutl
 import { AnimatePresence, motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { useUser } from "@clerk/nextjs";
 
 const MainProducts = ({ filteredProducts, setClickedProduct, handleOpenDialog }) => {
   const {t} = useTranslation();
-  
+  const {user} = useUser();
   
   const { selectedProductsID } = useSelector((state) => state.cart);
 
@@ -51,7 +52,7 @@ const MainProducts = ({ filteredProducts, setClickedProduct, handleOpenDialog })
                       handleOpenDialog(true);
                       setClickedProduct(item);
                     }}>
-                    {selectedProductsID.some((id) => id == item.id) && ( <AddShoppingCartOutlinedIcon sx={{ mr: 1 }} fontSize="small" /> )}
+                    {selectedProductsID.some((id) => id == item.id && user) && ( <AddShoppingCartOutlinedIcon sx={{ mr: 1 }} fontSize="small" /> )}
                     {t('Show Details')}
                   </Button>
                 </Tooltip>

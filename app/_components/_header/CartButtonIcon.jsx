@@ -24,11 +24,23 @@ const CartButtonIcon = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const dispatch = useDispatch();
   const [isHydrated, setIsHydrated] = useState(false); // To track hydration status
+  const [cartSelected, setCartsSelected] = useState([]);
+  // const [lengthCart, setLengthCart] = useState(0);
 
   // إضافة حالة isHydrated: للتحقق من أن العميل جاهز بعد الانتهاء من عملية الـ hydration (تحديث البيانات بعد تحميل الصفحة).
   useEffect(() => {
     setIsHydrated(true); // Set hydrated to true once client is ready
   }, []);
+  
+  useEffect(() => {
+    if (user) {
+      setCartsSelected(selectedProducts);
+      // setLengthCart(selectedProducts.length);
+    } else {
+      setCartsSelected([]);
+      // setLengthCart(0);
+    }
+  }, [selectedProducts, user]);
 
   const toggleDrawer = useCallback((open) => (event) => {
       if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) return;
@@ -53,10 +65,10 @@ const CartButtonIcon = () => {
   }, [dispatch, t, user]);
 
   // Calculating cart details
-  const lengthCart = useMemo(() => selectedProducts.length, [selectedProducts]);
+  const lengthCart = useMemo(() => cartSelected?.length, [cartSelected]);
   const totalAmount = useMemo(() => {
-    return selectedProducts.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0);
-  }, [selectedProducts]);
+    return cartSelected.reduce((acc, item) => acc + Number(item.price) * Number(item.quantity), 0);
+  }, [cartSelected]);
 
   if (!isHydrated) {
     return null; // or you can return a loading spinner
@@ -66,7 +78,7 @@ const CartButtonIcon = () => {
     <>
       <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={t("Shopping Cart")}>
         <IconButton  aria-label="cart" onClick={toggleDrawer(true)}>
-          <StyledBadge badgeContent={lengthCart} color="primary">
+          <StyledBadge badgeContent={user ? lengthCart : null} color="primary">
             <ShoppingCart />
           </StyledBadge>
         </IconButton>
@@ -86,7 +98,7 @@ const CartButtonIcon = () => {
           <Divider light />
 
           <div className="flex-1 overflow-auto">
-            {selectedProducts.map((item) => {
+            {cartSelected.map((item) => {
               return (
                 <Box key={item.id}>
                   <div className="flex w-full gap-3 items-center py-4 px-2" >
