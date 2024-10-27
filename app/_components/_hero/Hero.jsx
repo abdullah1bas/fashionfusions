@@ -13,7 +13,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 
 const mySlider = [
   { text: "MEN", link: "https://res.cloudinary.com/daw5hjzzu/image/upload/v1727069758/banner-15-min_glofxk.jpg" },
-  { text: "WOMEN", link: "https://res.cloudinary.com/daw5hjzzu/image/upload/v1727069759/banner-25-min_qmzmsn.jpg" },
+  { text: "WOMEN", link: "https://res.cloudinary.com/daw5hjzzu/image/upload/v1730034585/banner-25-min_rz8ovb.png" },
 ];
 
 const Hero = () => {
