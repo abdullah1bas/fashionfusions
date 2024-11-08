@@ -2,6 +2,7 @@ import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import { useHide } from "./useHide";
 
 const linkPage = [
   {title: 'services', links: ["1on1 Coaching", "Company Review", "Accounts Review", "HR Consulting", "SEO Optimisation"]},
@@ -11,9 +12,11 @@ const linkPage = [
 const securityLinks = ["Terms & Conditions", "Privacy Policy", "Cookies"];
 
 const Footer = () => {
+  const hide = useHide();
   const { t } = useTranslation();
   const {user} = useUser();
 
+  if(hide) return;
   return (
     <footer className="bg-white dark:bg-gray-900">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
