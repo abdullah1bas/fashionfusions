@@ -16,7 +16,6 @@ import { usePathname } from "next/navigation";
 const headerComponents = [HeaderMode, HeaderSearch, HeaderCategories];
 
 function App({ children }) {
-  console.log("App");
   const [theme, colorMode] = useMode();
   const [hide, setHide] = useState(false);
   const pathName = usePathname();
