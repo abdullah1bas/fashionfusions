@@ -14,7 +14,6 @@ import ScrollToTop from "./ScrollToTop";
 const headerComponents = [HeaderMode, HeaderSearch, HeaderCategories];
 
 function App({ children }) {
-  console.log("app");
   const [theme, colorMode] = useMode();
 
   return (
