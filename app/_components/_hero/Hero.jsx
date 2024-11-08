@@ -10,6 +10,7 @@ import { useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 // import required modules
 import { Autoplay, Pagination } from "swiper/modules";
+import Image from "next/image";
 
 const mySlider = [
   { text: "MEN", link: "https://res.cloudinary.com/daw5hjzzu/image/upload/v1727069758/banner-15-min_glofxk.jpg" },
@@ -44,7 +45,7 @@ const Hero = () => {
             {mySlider.map((item) => {
               return (
                 <SwiperSlide key={item.link} className="parent-slider">
-                  <img src={item.link} alt="" />
+                  <Image width={850} height={500} src={item.link} alt="swiper image" />
 
                   <Box sx={{[theme.breakpoints.up("sm")]: { position: "absolute", left: "10%", textAlign: "left",},
                       [theme.breakpoints.down("sm")]: {pt: 4,pb: 6,},}}>
@@ -73,7 +74,7 @@ const Hero = () => {
         <Box sx={{ display: { xs: "none", md: "flex" , flexDirection: 'column', gap: 8, minWidth: "26.6%" } }}>
           {cardData.map((item) =>(
             <div className="relative" key={item.title}>
-            <img width={'100%'} src={item.img} alt="image product" />
+            <Image width={300} height={250} src={item.img} alt="image product" />
 
             <div className="flex flex-col absolute top-1/2 -translate-y-1/2 left-8">
               <Typography className="text-secondary text-lg" variant="caption">{t(item.title)}</Typography>

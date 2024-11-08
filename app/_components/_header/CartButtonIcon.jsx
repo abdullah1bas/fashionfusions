@@ -8,6 +8,7 @@ import { useUser } from "@clerk/nextjs";
 import { decreaseQuantity, deleteProduct, increaseQuantity } from "../../_redux/cartSlice";
 import Swal from "sweetalert2";
 import "./headerC.css";
+import Image from "next/image";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": { right: -3, top: 13, border: `2px solid ${theme.palette.background.paper}`, padding: "0 4px",},}));
@@ -117,7 +118,7 @@ const CartButtonIcon = () => {
                     </div>
 
                     <Box sx={{width: { xs: "86px", sm: "110px" },height: { xs: "86px", sm: "110px" },}}>
-                      <img className="size-full object-contain" src={item.image} />
+                      <Image width={350} height={300} alt="image product" className="size-full object-contain" src={item.image} />
                     </Box>
 
                     <div className="flex flex-col w-40 flex-grow gap-4">

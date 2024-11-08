@@ -15,7 +15,8 @@ import { usePathname } from "next/navigation";
 
 const headerComponents = [HeaderMode, HeaderSearch, HeaderCategories];
 
-function App({ child }) {
+function App({ children }) {
+  console.log("App");
   const [theme, colorMode] = useMode();
   const [hide, setHide] = useState(false);
   const pathName = usePathname();
@@ -35,7 +36,7 @@ function App({ child }) {
         <ThemeProvider theme={theme}>
           <CssBaseline />
             {!hide && <HeaderContainer headerComponents={headerComponents} />}
-            <div className="min-h-lvh">{child}</div>
+            <div className="min-h-lvh">{children}</div>
             {!hide && <Footer />}
             
             <ScrollToTop />
