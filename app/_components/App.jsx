@@ -22,7 +22,7 @@ function App({ children }) {
         <ThemeProvider theme={theme}>
           <CssBaseline />
             <HeaderContainer headerComponents={headerComponents} />
-            <div className="min-h-lvh">{children}</div>
+            {children}
             <Footer />
             
             <ScrollToTop />

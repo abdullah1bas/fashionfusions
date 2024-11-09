@@ -31,15 +31,13 @@ const ProductDetails = ({ clickedProduct }) => {
   },[selectedProductsID]);
 
   const productQuantity = useCallback((clickProduct) => {
-      const myProduct = selectedProducts.find((itemUser) => {
-        return itemUser.id === clickProduct.id;
-      });
+      const myProduct = selectedProducts.find((itemUser) => itemUser.id === clickProduct.id);
       return myProduct?.quantity;
     }, [selectedProducts]);
   return (
     <Box className="flex items-center gap-5 flex-col sm:flex-row h-[400px]">
       <Box sx={{ display: "flex", height: "100%",  width: "40%",  [theme.breakpoints.down("sm")]: { width: "100%", }, }}>
-        <Image width={350} height={300} style={{width: "100%"}} src={clickedProduct.image} alt={clickedProduct.title} />
+        <Image width={350} height={300} style={{width: "100%"}} src={`${clickedProduct.image}`} alt={clickedProduct.title} />
       </Box>
 
       <Box className="py-4 flex-1 text-center sm:text-left w-full md:w-3/5" >
