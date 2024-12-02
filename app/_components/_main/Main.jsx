@@ -1,3 +1,4 @@
+"use client";
 import { Box, CircularProgress, Container, Dialog, IconButton, Typography, useTheme,} from "@mui/material";
 import React, { useCallback, useState } from "react";
 import { Close } from "@mui/icons-material";

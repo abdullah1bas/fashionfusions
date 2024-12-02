@@ -1,4 +1,3 @@
-"use client";
 import Hero from "./_components/_hero/Hero";
 import Main from "./_components/_main/Main";
 
