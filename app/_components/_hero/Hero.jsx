@@ -1,3 +1,4 @@
+"use client"
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
