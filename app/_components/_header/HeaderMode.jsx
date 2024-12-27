@@ -1,7 +1,7 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import {Fade,IconButton,List,ListItem,ListItemText,Menu,MenuItem,Tooltip, useTheme, Zoom,} from "@mui/material";
-import { DarkModeOutlined, ExpandMore, Facebook, Instagram, LightModeOutlined, Twitter } from "@mui/icons-material";
+import { DarkModeOutlined, ExpandMore, Facebook, Instagram, LightModeOutlined, X } from "@mui/icons-material";
 import i18n from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
 import { ColorModeContext } from "../../_style/theme";
@@ -9,7 +9,7 @@ import { ColorModeContext } from "../../_style/theme";
 const socialIcons = [
   {
     title: "Twitter",
-    iconButton: <Twitter sx={{ fontSize: "16px", color: "#fff" }} />,
+    iconButton: <X sx={{ fontSize: "16px", color: "#fff" }} />,
     iconUrl: "https://www.twitter.com/",
   },
   {

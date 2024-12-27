@@ -41,7 +41,7 @@ export default function SignUp() {
             <div className="relative -mt-16 block lg:hidden mb-4">
               <div className="inline-flex size-16 items-center justify-center rounded-full bg-white text-blue-600 sm:size-20 dark:bg-gray-900">
                 <span className="sr-only">{t("Home")}</span>
-                <Image width={80} height={80} alt="logo" src={'/logoECommerce-modified-min.png.svg'} />
+                <Image width={80} height={80} alt="logo" src={'/logoECommerce-modified-min.png.svg'} loading="lazy" />
                 {/* <img src="/logo.svg" alt="" className="text-white" /> */}
               </div>
 

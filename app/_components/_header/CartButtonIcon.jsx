@@ -118,7 +118,7 @@ const CartButtonIcon = () => {
                     </div>
 
                     <Box sx={{width: { xs: "86px", sm: "110px" },height: { xs: "86px", sm: "110px" },}}>
-                      <Image width={350} height={300} alt="image product" className="size-full object-contain" src={item.image} />
+                      <Image width={350} height={300} alt="image product" className="size-full object-contain" src={item.image} loading="lazy" />
                     </Box>
 
                     <div className="flex flex-col w-40 flex-grow gap-4">

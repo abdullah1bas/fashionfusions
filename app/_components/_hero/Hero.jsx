@@ -46,7 +46,7 @@ const Hero = () => {
             {mySlider.map((item) => {
               return (
                 <SwiperSlide key={item.link} className="parent-slider">
-                  <Image width={850} height={500} src={item.link} alt="swiper image" />
+                  <Image width={850} height={500} src={item.link} alt="swiper image" loading="lazy" />
 
                   <Box sx={{[theme.breakpoints.up("sm")]: { position: "absolute", left: "10%", textAlign: "left",},
                       [theme.breakpoints.down("sm")]: {pt: 4,pb: 6,},}}>
@@ -75,7 +75,7 @@ const Hero = () => {
         <Box sx={{ display: { xs: "none", md: "flex" , flexDirection: 'column', gap: 8, minWidth: "26.6%" } }}>
           {cardData.map((item) =>(
             <div className="relative" key={item.title}>
-            <Image width={300} height={250} src={item.img} alt="image product" />
+            <Image width={300} height={250} src={item.img} alt="image product" loading="lazy" />
 
             <div className="flex flex-col absolute top-1/2 -translate-y-1/2 left-8">
               <Typography className="text-secondary text-lg" variant="caption">{t(item.title)}</Typography>
