@@ -4,8 +4,8 @@ import { Container, Fade, IconButton, Stack, Tooltip, Typography, useMediaQuery,
 import { useTranslation } from "react-i18next";
 import CartButtonIcon from "./CartButtonIcon";
 import { useRouter } from "next/navigation";
-import { UserButton, useUser } from "@clerk/nextjs";
-import changeClerk from "../changeClerk";
+// import { UserButton, useUser } from "@clerk/nextjs";
+// import changeClerk from "../changeClerk";
 import { changeAPI } from "../../_redux/changeAPISlice";
 import { setSearchTerm } from "../../_redux/selectedProductSlice";
 import SearchIcon from "@mui/icons-material/Search";
@@ -47,11 +47,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const options = ["All Categories", "Men", "Women", "Electronics", "Jewelery"];
 
-const loginIcon = [{ title: "Sign In", url: "/sign-in", icon: <PersonOutlined /> }, { title: "Sign Up", url: "/sign-up", icon: <Login /> },];
+// const loginIcon = [{ title: "Sign In", url: "/sign-in", icon: <PersonOutlined /> }, { title: "Sign Up", url: "/sign-up", icon: <Login /> },];
 
 const HeaderSearch = () => {
   const { t, i18n } = useTranslation();
-  const { user } = useUser();
+  // const { user } = useUser();
   const router = useRouter();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -84,8 +84,8 @@ const HeaderSearch = () => {
       router.push(`/search/${searchProduct}`);
     }
   };
-  changeClerk(".cl-internal-16vtwdp");
-  changeClerk(".cl-internal-lk7758");
+  // changeClerk(".cl-internal-16vtwdp");
+  // changeClerk(".cl-internal-lk7758");
   return (
     <Container className="my-5 flex justify-between">
       <div className="flex items-center cursor-pointer"  onClick={() => { dispatch(setSearchTerm("")); router.push("/");}}>
@@ -136,11 +136,11 @@ const HeaderSearch = () => {
       <Stack direction={"row"} alignItems={"center"} gap={2}>
         <CartButtonIcon />
 
-        {!user ? (<div> {loginIcon.map((button) => (
+        {/* {!user ? (<div> {loginIcon.map((button) => (
               <Tooltip key={button.title} TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={button.title}>
                 <IconButton onClick={() => router.push(button.url)} color="inherit">{button.icon}</IconButton>
               </Tooltip>))}
-          </div>) : (<UserButton />)}
+          </div>) : (<UserButton />)} */}
       </Stack>
     </Container>
   );

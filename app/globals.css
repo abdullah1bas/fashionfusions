@@ -82,3 +82,16 @@ html {
 .cl-internal-16mc20d {
   display: none;
 }
+
+.swal2-container,
+.swal2-backdrop-show {
+  z-index: 10000 !important;
+}
+
+@keyframes ani-arrow {
+  0%, 100% {
+    left: 0
+  } 50% {
+    left: -3px;
+  }
+}

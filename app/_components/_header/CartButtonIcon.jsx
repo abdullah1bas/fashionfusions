@@ -4,10 +4,9 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
-import { useUser } from "@clerk/nextjs";
+// import { useUser } from "@clerk/nextjs";
 import { decreaseQuantity, deleteProduct, increaseQuantity } from "../../_redux/cartSlice";
 import Swal from "sweetalert2";
-import "./headerC.css";
 import Image from "next/image";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -21,7 +20,7 @@ const CartButtonIcon = () => {
   const theme = useTheme();
   const router = useRouter();
   const { selectedProducts } = useSelector((state) => state.cart);
-  const {user} = useUser();
+  // const {user} = useUser();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const dispatch = useDispatch();
   const [isHydrated, setIsHydrated] = useState(false); // To track hydration status
@@ -34,14 +33,8 @@ const CartButtonIcon = () => {
   }, []);
   
   useEffect(() => {
-    if (user) {
-      setCartsSelected(selectedProducts);
-      // setLengthCart(selectedProducts.length);
-    } else {
-      setCartsSelected([]);
-      // setLengthCart(0);
-    }
-  }, [selectedProducts, user]);
+    setCartsSelected(selectedProducts);
+  }, [selectedProducts]);
 
   const toggleDrawer = useCallback((open) => (event) => {
       if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) return;
@@ -60,10 +53,10 @@ const CartButtonIcon = () => {
       cancelButtonText: t("Cancel"),
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteProduct({ product: item, username: user?.username }));
+        dispatch(deleteProduct({ product: item}));
       }
     });
-  }, [dispatch, t, user]);
+  }, [dispatch, t]);
 
   // Calculating cart details
   const lengthCart = useMemo(() => cartSelected?.length, [cartSelected]);
@@ -79,7 +72,7 @@ const CartButtonIcon = () => {
     <>
       <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title={t("Shopping Cart")}>
         <IconButton  aria-label="cart" onClick={toggleDrawer(true)}>
-          <StyledBadge badgeContent={user ? lengthCart : null} color="primary">
+          <StyledBadge badgeContent={lengthCart} color="primary">
             <ShoppingCart />
           </StyledBadge>
         </IconButton>
@@ -105,14 +98,14 @@ const CartButtonIcon = () => {
                   <div className="flex w-full gap-3 items-center py-4 px-2" >
                     <div className="flex w-8 h-full items-center flex-col justify-between gap-5">
                       <IconButton size="small" sx={{ color: theme.palette.info.main,}}
-                        onClick={() => {dispatch(increaseQuantity({product :item, username: user?.username}));}}>
+                        onClick={() => {dispatch(increaseQuantity({product :item}));}}>
                         <Add />
                       </IconButton>
 
                       <StyledBadge2 badgeContent={item.quantity} color="secondary" />
 
                       <IconButton  size="small" sx={{ color: theme.palette.info.main, }} disabled={item.quantity <= 1 && true}
-                        onClick={() => {dispatch(decreaseQuantity({product: item, username: user?.username}));}}>
+                        onClick={() => {dispatch(decreaseQuantity({product: item}));}}>
                         <Remove />
                       </IconButton>
                     </div>

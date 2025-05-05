@@ -1,7 +1,6 @@
 import "./globals.css";
 import { Roboto } from "next/font/google";
 import App from "./_components/App";
-import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Roboto({ subsets: ["latin"], weight: "700" });
 
@@ -27,9 +26,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/logoECommerce-modified-min.png.svg" type="image/png" />
       </head>
       <body className={inter.className}>
-        <ClerkProvider>
-          <App>{children}</App>
-        </ClerkProvider>
+        <App>{children}</App>
       </body>
     </html>
   );

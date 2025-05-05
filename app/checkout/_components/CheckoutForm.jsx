@@ -1,12 +1,17 @@
-import { Container } from "@mui/material";
+import { Container, FormControl, FormLabel, Input } from "@mui/material";
 import { deleteAllProducts } from "../../_redux/cartSlice";
-import { useUser } from "@clerk/nextjs";
-import { useStripe, useElements, PaymentElement,} from "@stripe/react-stripe-js";
+// import { useUser } from "@clerk/nextjs";
+import {
+  useStripe,
+  useElements,
+  PaymentElement,
+} from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 const CheckoutForm = ({ amount, products }) => {
-  const { user } = useUser();
+  // const { user } = useUser();
+  const [data, setData] = useState({ fullName: "", email: "" });
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState();
@@ -56,7 +61,6 @@ const CheckoutForm = ({ amount, products }) => {
       },
     });
 
-    
     if (result.error) {
       // Show error to your customer (for example, payment details incomplete)
       console.log(result.error.message);
@@ -72,19 +76,50 @@ const CheckoutForm = ({ amount, products }) => {
       method: "POST",
       body: JSON.stringify({
         amount,
-        email: user.primaryEmailAddress.emailAddress,
-        fullName: user.fullName,
+        email: data.email,
+        fullName: data.fullName,
         products,
       }),
     });
-    if(res) dispatch(deleteAllProducts(user?.username)); // Delete all products
+    if (res) dispatch(deleteAllProducts()); // Delete all products
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <Container className="flex flex-col px-10  h-lvh justify-center ">
+      <Container className="flex flex-col px-10  h-lvh justify-center">
         <PaymentElement />
-        <button className="w-full p-2 mt-4 text-white rounded-md bg-primary" disabled={loading}>
+        <div className="flex w-full justify-between items-center gap-5 mt-4 px-2">
+          <FormControl className="w-full">
+            <FormLabel htmlFor="email">Email</FormLabel>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Enter Your Email"
+              size="lg"
+              variant="outlined"
+              required
+              onChange={(e) => setData({ ...data, email: e.target.value })}
+            />
+          </FormControl>
+          <FormControl className="w-full">
+            <FormLabel htmlFor="fullName">Full Name</FormLabel>
+            <Input
+              id="fullName"
+              name="fullName"
+              minRows={15}
+              size="lg"
+              placeholder="Enter Full Name"
+              required
+              onChange={(e) => setData({ ...data, fullName: e.target.value })}
+            />
+          </FormControl>
+        </div>
+
+        <button
+          className="w-full p-2 mt-4 text-white rounded-md bg-primary"
+          disabled={loading}
+        >
           Submit
         </button>
       </Container>

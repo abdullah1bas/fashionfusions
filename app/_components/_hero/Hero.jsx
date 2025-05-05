@@ -2,7 +2,7 @@
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import "./slider.css";
+import styles from "./slider.module.css";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Box, Container, Link, Typography, useTheme ,Button} from "@mui/material";
 import { useTranslation } from "react-i18next";
@@ -41,11 +41,11 @@ const Hero = () => {
               disableOnInteraction: false,
             }}
             modules={[Pagination, Autoplay]}
-            className="mySwiper"
+            className={"mySwiper"}
           >
             {mySlider.map((item) => {
               return (
-                <SwiperSlide key={item.link} className="parent-slider">
+                <SwiperSlide key={item.link} className={`${styles.parentSlider}`}>
                   <Image width={850} height={500} src={item.link} alt="swiper image" loading="lazy" />
 
                   <Box sx={{[theme.breakpoints.up("sm")]: { position: "absolute", left: "10%", textAlign: "left",},
@@ -82,13 +82,13 @@ const Hero = () => {
               <Typography className="text-secondary text-lg mt-2"variant="h6">{t(item.Class)}</Typography>
               <Typography className="text-secondary" variant="h6">{t(item.price)}</Typography>
 
-              <Link className='link-shop text-secondary flex items-center gap-1 transition duration-200 relative cursor-pointer hover:text-[#D23F57] '
+              <Link className={`${styles.linkShop} text-secondary flex items-center gap-1 transition duration-200 relative cursor-pointer hover:text-[#D23F57] `}
                 sx={{
                   "&:hover:before": { width: t("shop now") == "Achetez maintenant" ? "165px" : t("shop now") == "تسوق الآن" ? "70px" : "90px",},
                   "&:hover .icon-arrow": { animationPlayState: "running", }, color: '#2B3445', }} underline="none"
               >
                 {t("shop now")}
-                <ArrowForwardIcon className="icon-arrow text-sm relative -left-1 top-0 transition duration-300"
+                <ArrowForwardIcon className={`icon-arrow text-sm relative -left-1 top-0 transition duration-300`}
                   sx={{ animation: "ani-arrow 1s ease-in-out infinite", animationPlayState: "paused",}}/>
               </Link>
             </div>

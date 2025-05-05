@@ -5,9 +5,8 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
 import { addToCart, decreaseQuantity, increaseQuantity,} from "../../_redux/cartSlice";
-import { useUser } from "@clerk/nextjs";
+// import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import "./Main.css";
 import Image from "next/image";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -15,19 +14,19 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const ProductDetails = ({ clickedProduct }) => {
+  const [cartsSelectedId , setCartsSelectedId] = useState([]);
   const theme = useTheme();
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const {user} = useUser();
+  // const {user} = useUser();
   const router = useRouter();
 
   const { selectedProducts, selectedProductsID } = useSelector(
     (state) => state.cart
   );
 
-  const [cartsSelectedId , setCartsSelectedId] = useState([]);
   useEffect(() => {
-    !user ? setCartsSelectedId([]) : setCartsSelectedId(selectedProductsID)
+    setCartsSelectedId(selectedProductsID)
   },[selectedProductsID]);
 
   const productQuantity = useCallback((clickProduct) => {
@@ -68,10 +67,10 @@ const ProductDetails = ({ clickedProduct }) => {
                       cancelButtonText: t("Cancel"),
                     }).then((result) => {
                       if (result.isConfirmed) {
-                        dispatch(decreaseQuantity({product: clickedProduct, username: user?.username}));
+                        dispatch(decreaseQuantity({product: clickedProduct}));
                       }
                     })
-                  : dispatch(decreaseQuantity({product: clickedProduct, username: user?.username}));
+                  : dispatch(decreaseQuantity({product: clickedProduct}));
               }}
             >
               <Remove fontSize="small" />
@@ -79,7 +78,7 @@ const ProductDetails = ({ clickedProduct }) => {
 
             <StyledBadge badgeContent={productQuantity(clickedProduct)} color="primary" />
 
-            <IconButton color="primary" onClick={() => { dispatch(increaseQuantity({product: clickedProduct, username: user?.username}));}}>
+            <IconButton color="primary" onClick={() => { dispatch(increaseQuantity({product: clickedProduct}));}}>
               <Add fontSize="small" />
             </IconButton>
           </div>
@@ -87,24 +86,20 @@ const ProductDetails = ({ clickedProduct }) => {
           <Button sx={{ textTransform: "capitalize", p: 1, lineHeight: 1.1 }}
             variant="contained" color="primary" aria-hidden="false"
             onClick={() => {
-              if(!user) {
-                router.push('/sign-in');
-              } else {
-                Swal.fire({
-                  title: t("Are you sure?"),
-                  text: t("You won't be able to Buy this!"),
-                  icon: "warning",
-                  showCancelButton: true,
-                  confirmButtonColor: "#3085d6",
-                  cancelButtonColor: "#d33",
-                  confirmButtonText: t("Yes, Buy it!"),
-                  cancelButtonText: t("Cancel"),
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    dispatch(addToCart({product: clickedProduct, username: user?.username}));
-                  }
-                });
-              }
+              Swal.fire({
+                title: t("Are you sure?"),
+                text: t("You won't be able to Buy this!"),
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: t("Yes, Buy it!"),
+                cancelButtonText: t("Cancel"),
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  dispatch(addToCart({product: clickedProduct}));
+                }
+              });
             }}>
             <ShoppingCart sx={{ fontSize: "18px", mr: 1 }} /> {t("Add to cart")}
           </Button>

@@ -1,6 +1,6 @@
-import { useUser } from "@clerk/nextjs";
+// import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { useHide } from "./useHide";
 
@@ -14,7 +14,7 @@ const securityLinks = ["Terms & Conditions", "Privacy Policy", "Cookies"];
 const Footer = () => {
   const hide = useHide();
   const { t } = useTranslation();
-  const {user} = useUser();
+  // const {user} = useUser();
 
   if(hide) return;
   return (
@@ -44,11 +44,11 @@ const Footer = () => {
                 </p>
               </div>
 
-              {!user && <div className="mt-6 w-full">
+              {/* {!user && <div className="mt-6 w-full">
                 <Link href={'/sign-up'} className="mt-1 w-full rounded bg-teal-500 px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition-none hover:bg-teal-600 sm:mt-0 sm:w-auto sm:shrink-0">
                   {t('Sign Up')}
                 </Link>
-              </div>}
+              </div>} */}
             </div>
           </div>
 
