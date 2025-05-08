@@ -3,7 +3,7 @@ import Hero from "./_components/_hero/Hero";
 import dynamic from "next/dynamic";
 
 const Main = dynamic(() => import("./_components/_main/Main"), {
-  loading: (
+  loading: () => (
     <Box sx={{ py: 11, textAlign: "center" }}>
       <CircularProgress />
     </Box>

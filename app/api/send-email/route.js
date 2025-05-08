@@ -1,4 +1,4 @@
-import { EmailTemplate } from "../../_components/email-template";
+import { EmailTemplate } from "@/app/_components/email/email-template";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -11,7 +11,7 @@ export async function POST(req) {
       // da 3bara 3an al domin
       from: "onboarding@resend.dev", // تأكد من أن البريد الإلكتروني مسجل في Resend
       // hb3to le meen
-      to: [body.email], // البريد الإلكتروني المستلم
+      to: [body.email, "abdullah.abazza@gmail.com"], // البريد الإلكتروني المستلم
       subject: "Your purchase details from Abazza Tech FashionFusion",
       react: EmailTemplate({ body }), // تأكد أن EmailTemplate جاهز لاستقبال props
     });

@@ -1,4 +1,5 @@
-import { Container, FormControl, FormLabel, Input } from "@mui/material";
+"use client";
+import { Alert, CircularProgress, Container, FormControl, FormLabel, Input,} from "@mui/material";
 import { deleteAllProducts } from "../../_redux/cartSlice";
 // import { useUser } from "@clerk/nextjs";
 import {
@@ -87,6 +88,18 @@ const CheckoutForm = ({ amount, products }) => {
   return (
     <form onSubmit={handleSubmit}>
       <Container className="flex flex-col px-10  h-lvh justify-center">
+        <Alert
+          severity="info"
+          sx={{ mb: 2, fontWeight: "bold", textAlign: "center" }}
+        >
+          Use test card <strong>4242 4242 4242 4242</strong> with CVC{" "}
+          <strong>567</strong> to complete the payment.
+        </Alert>
+
+        <Alert severity="warning" sx={{ mb: 4, textAlign: "center" }}>
+          This payment is for <strong>testing purposes only</strong>. No real
+          money will be charged.
+        </Alert>
         <PaymentElement />
         <div className="flex w-full justify-between items-center gap-5 mt-4 px-2">
           <FormControl className="w-full">
@@ -107,7 +120,6 @@ const CheckoutForm = ({ amount, products }) => {
             <Input
               id="fullName"
               name="fullName"
-              minRows={15}
               size="lg"
               placeholder="Enter Full Name"
               required
@@ -117,11 +129,22 @@ const CheckoutForm = ({ amount, products }) => {
         </div>
 
         <button
-          className="w-full p-2 mt-4 text-white rounded-md bg-primary"
+          className={`w-full p-2 mt-4 text-white rounded-md flex justify-center items-center ${
+            loading ? "bg-gray-500 cursor-not-allowed" : "bg-primary"
+          }`}
           disabled={loading}
         >
-          Submit
+          {loading ? (
+            <CircularProgress size={24} style={{ color: "white" }} />
+          ) : (
+            "Submit"
+          )}
         </button>
+        {errorMessage && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            {errorMessage}
+          </Alert>
+        )}
       </Container>
     </form>
   );
