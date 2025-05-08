@@ -7,6 +7,7 @@ import MainHeader from "./MainHeader";
 import MainProducts from "./MainProducts";
 import { useLoadProducts } from "./useLoadProducts";
 import { useTranslation } from "react-i18next";
+import Loading from "../Loading";
 
 const Main = ({ IsSearch }) => {
   const {t} = useTranslation();
@@ -20,11 +21,7 @@ const Main = ({ IsSearch }) => {
 
 
   if (isLoading) {
-    return (
-      <Box sx={{ py: 11, textAlign: "center" }}>
-        <CircularProgress />
-      </Box>
-    );
+    return <Loading />
   } else if (error) {
     return (
       <Container

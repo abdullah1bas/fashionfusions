@@ -1,13 +1,9 @@
-import { Box, CircularProgress } from "@mui/material";
 import Hero from "./_components/_hero/Hero";
 import dynamic from "next/dynamic";
+import Loading from "./_components/Loading";
 
 const Main = dynamic(() => import("./_components/_main/Main"), {
-  loading: () => (
-    <Box sx={{ py: 11, textAlign: "center" }}>
-      <CircularProgress />
-    </Box>
-  ),
+  loading: () => <Loading />,
   ssr: false,
 });
 export default function Home() {
